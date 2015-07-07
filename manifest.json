@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "AmIUnique",
+  "version": "0.1",
+  "version_name": "0.1 beta",
+  "author": "Pierre Laperdrix",
+  "description": "An extension to collect daily data on your browser fingerprint and much more. Help us investigate the diversity of fingerprints!",
+  "homepage_url": "https://amiunique.org/",
+  "offline_enabled": false,
+  "permissions": [
+    "https://amiunique.org/*",
+    "http://localhost:9000/*",
+    "storage"
+  ],
+  "background": {
+    "page": "background.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://amiunique.org/extension"],
+      "js": ["content.js"],
+      "all_frames": true,
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}
