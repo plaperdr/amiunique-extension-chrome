@@ -67,5 +67,8 @@ chrome.storage.local.get('uuid',function(items) {
     }
 });
 
-//Start the main application loop
-startLoop();
+//Start the main application loop when the background document is ready
+document.addEventListener("DOMContentLoaded", function(event) {
+    startLoop();
+});
+
