@@ -52,21 +52,20 @@ function startLoop(){
     setInterval(loadIframe,4*60*60*1000);
 }
 
-chrome.runtime.onStartup.addListener(function(){
-    console.log("On startup");
-
-    chrome.storage.local.get('uuid',function(items) {
-        uuid = items.uuid;
-        if(uuid === undefined){
-            uuid = generateUUID();
-            chrome.storage.local.set({'uuid': uuid});
-        }
-    });
-
-    startLoop();
-});
-
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
     console.log(request);
 });
 
+
+//Get the unique ID in Chrome storage
+//If not present, generate it
+chrome.storage.local.get('uuid',function(items) {
+    uuid = items.uuid;
+    if(uuid === undefined){
+        uuid = generateUUID();
+        chrome.storage.local.set({'uuid': uuid});
+    }
+});
+
+//Start the main application loop
+startLoop();
