@@ -52,19 +52,17 @@ function startLoop(){
     setInterval(loadIframe,4*60*60*1000);
 }
 
-chrome.runtime.onInstalled.addListener(function() {
-    console.log("On install");
-    chrome.storage.local.get(function(items) {
-        uuid = items.uuid;
-        if(uuid === undefined){
-            chrome.storage.local.set({uuid: generateUUID()});
-        }
-    });
-    startLoop();
-});
-
 chrome.runtime.onStartup.addListener(function(){
     console.log("On startup");
+
+    chrome.storage.local.get('uuid',function(items) {
+        uuid = items.uuid;
+        if(uuid === undefined){
+            uuid = generateUUID();
+            chrome.storage.local.set({'uuid': uuid});
+        }
+    });
+
     startLoop();
 });
 
