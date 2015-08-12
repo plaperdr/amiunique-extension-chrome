@@ -11,8 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Adding click events for buttons
     $('#viewChanges').click(function() {
-        //chrome.tabs.create({ url: "https://amiunique.org/timeline/"+background.uuid+"#"+background.nbEvol });
-        chrome.tabs.create({url: "http://localhost:9000/timeline/" + background.uuid + "#" + background.nbEvol});
+        chrome.tabs.create({ url: "https://amiunique.org/timeline/"+background.uuid+"#"+background.nbEvol });
 
         chrome.runtime.sendMessage({
             from: 'popup',
@@ -36,13 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     $('#viewFP').click(function() {
-        //chrome.tabs.create({ url: "https://amiunique.org/timeline/"+background.uuid+"#fp" });
-        chrome.tabs.create({url: "http://localhost:9000/timeline/" + background.uuid + "#fp"});
+        chrome.tabs.create({ url: "https://amiunique.org/timeline/"+background.uuid+"#fp" });
     });
 
     $('#viewTimeline').click(function() {
-        //chrome.tabs.create({ url: "https://amiunique.org/timeline/"+background.uuid });
-        chrome.tabs.create({ url: "http://localhost:9000/timeline/"+background.uuid });
+        chrome.tabs.create({ url: "https://amiunique.org/timeline/"+background.uuid });
     });
 
 });
