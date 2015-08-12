@@ -1,0 +1,51 @@
+var background = chrome.extension.getBackgroundPage();
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    $('#date').text(background.lastSent);
+    $('#nbEvol').text(background.nbEvol);
+
+    if(background.changesToSee){
+        $('#changes').show();
+    }
+
+    //Adding click events for buttons
+    $('#viewChanges').click(function() {
+        //chrome.tabs.create({ url: "https://amiunique.org/timeline/"+background.uuid+"#"+background.nbEvol });
+        chrome.tabs.create({url: "http://localhost:9000/timeline/" + background.uuid + "#" + background.nbEvol});
+
+        chrome.runtime.sendMessage({
+            from: 'popup',
+            subject: 'changesToSee',
+            changesToSee: false
+        });
+
+        $('#changes').hide();
+
+    });
+
+    $('#discardChanges').click(function() {
+        chrome.runtime.sendMessage({
+            from: 'popup',
+            subject: 'changesToSee',
+            changesToSee: false
+        });
+
+        $('#changes').hide();
+
+    });
+
+    $('#viewFP').click(function() {
+        //chrome.tabs.create({ url: "https://amiunique.org/timeline/"+background.uuid+"#fp" });
+        chrome.tabs.create({url: "http://localhost:9000/timeline/" + background.uuid + "#fp"});
+    });
+
+    $('#viewTimeline').click(function() {
+        //chrome.tabs.create({ url: "https://amiunique.org/timeline/"+background.uuid });
+        chrome.tabs.create({ url: "http://localhost:9000/timeline/"+background.uuid });
+    });
+
+});
+
+
+
