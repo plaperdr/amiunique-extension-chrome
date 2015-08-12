@@ -96,17 +96,19 @@ chrome.runtime.onMessage.addListener(
 //Get the unique ID in Chrome storage
 //If not present, generate it
 chrome.storage.local.get(function(items) {
-    //uuid = items.uuid;
-    uuid = undefined;
+    uuid = items.uuid;
     nbEvol = items.nbEvol;
     changesToSee = items.changesToSee;
     lastSent = items.lastSent;
-    if(uuid === undefined){
+    if(uuid === undefined) {
         uuid = generateUUID();
+        chrome.storage.local.set({'uuid': uuid});
+    }
+    if(nbEvol === undefined){
         nbEvol = 0;
         changesToSee = false;
         lastSent = new Date();
-        chrome.storage.local.set({'uuid': uuid, 'nbEvol':nbEvol, 'changesToSee':changesToSee, 'lastSent': lastSent});
+        chrome.storage.local.set({'nbEvol':nbEvol, 'changesToSee':changesToSee, 'lastSent': lastSent});
     }
     if(changesToSee) chrome.browserAction.setBadgeText({text:"!"});
 });
