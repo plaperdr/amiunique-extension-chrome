@@ -1,14 +1,12 @@
 //AmIUnique background.js
 
-console.log("AmIUnique extension");
-
-var iframe;
-
 //Extension variables
+var iframe;
 var uuid;
 var nbEvol;
 var lastSent;
 var changesToSee;
+var notifications;
 
 function generateUUID(){
     var d = new Date().getTime();
@@ -21,69 +19,84 @@ function generateUUID(){
 }
 
 function loadIframe(){
-    console.log("Loading iframe");
-    iframe.src= "https://amiunique.org/extension";
+    iframe.src= "https://amiunique.org/extension#"+uuid;
 }
 
 function clearIframe() {
-    console.log("Clearing iframe");
     iframe.src= "";
+
+    //Getting number of changes
+    requestNbChanges();
 }
 
-function registerListener(){
-    iframe = window.document.getElementById("amiunique");
-    iframe.addEventListener("load", function () {
-        if(!iframe.src.startsWith("chrome-extension")) {
+function requestNbChanges(){
+    //Make request
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://amiunique.org/getNbEvol/"+uuid, false);
+    xhr.send();
+    var newEvol = parseInt(xhr.responseText);
 
-            chrome.runtime.sendMessage({
-                from: "background",
-                uuid: uuid
-            });
+    //If the fingerprint has changed
+    //We indicate it in the browser action
+    if (newEvol > nbEvol) {
+        nbEvol = newEvol;
+        chrome.storage.local.set({'nbEvol': nbEvol});
 
-            setTimeout(clearIframe,10000);
+        if(notifications != 'D'){
+            changesToSee = true;
+            chrome.storage.local.set({'changesToSee':true});
+            if(notifications == "E") chrome.browserAction.setBadgeText({text:"!"});
         }
-    });
+    }
+
+    //We update the time the last FP was sent
+    lastSent = new Date();
+    chrome.storage.local.set({'lastSent': lastSent});
+}
+
+function sendFP(){
+    //Send FP
+    loadIframe();
+    //Clear iframe
+    setTimeout(clearIframe,10000);
 }
 
 function startLoop(){
+    //Get iframe from background.html
+    iframe = window.document.getElementById("amiunique");
 
-    //Register listeners so the UUID is sent
-    //to the content script when the iframe
-    //is loaded
-    registerListener();
-
-    //Send FP on browser startup
-    loadIframe();
+    //Send FP on startup
+    sendFP();
 
     //Send the FP every 4 hours to the server
-    setInterval(loadIframe,4*60*60*1000);
+    setInterval(sendFP,
+        4*60*60*1000
+    );
+}
+
+function updateOptions(userChoice){
+    if(notifications != userChoice){
+        notifications = userChoice;
+        chrome.storage.local.set({'notifications':notifications});
+        if(notifications == "D"){
+            changesToSee = false;
+            chrome.storage.local.set({'changesToSee':false});
+            chrome.browserAction.setBadgeText({text:""});
+        } else if (notifications == "B"){
+            chrome.browserAction.setBadgeText({text:""});
+        }
+    }
 }
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-
-        console.log(request);
-
         if (request.from == "content") {
-            var newEvol = parseInt(request.nbEvol);
-
-            //If the fingerprint has changed
-            //We indicate it in the browser action
-            if (newEvol > nbEvol) {
-                chrome.browserAction.setBadgeText({text:"!"});
-                nbEvol = newEvol;
-                changesToSee = true;
-                chrome.storage.local.set({'nbEvol': nbEvol, 'changesToSee':true});
-            }
-
-            //We update the time the last FP was sent
-            lastSent = new Date();
-            chrome.storage.local.set({'lastSent': lastSent});
+            //Send ID back to content script
+            sendResponse({data:uuid});
 
         } else if (request.from == "popup"){
-
             //If the user has clicked on the "View changes" button
-            //We reset the text the badge of the browser action
+            //or the "X" button, we reset the text the badge of the browser action
             chrome.browserAction.setBadgeText({text:""});
             changesToSee = false;
             chrome.storage.local.set({'changesToSee':false});
@@ -100,6 +113,7 @@ chrome.storage.local.get(function(items) {
     nbEvol = items.nbEvol;
     changesToSee = items.changesToSee;
     lastSent = items.lastSent;
+    notifications = items.notifications;
     if(uuid === undefined) {
         uuid = generateUUID();
         chrome.storage.local.set({'uuid': uuid});
@@ -108,13 +122,16 @@ chrome.storage.local.get(function(items) {
         nbEvol = 0;
         changesToSee = false;
         lastSent = new Date();
-        chrome.storage.local.set({'nbEvol':nbEvol, 'changesToSee':changesToSee, 'lastSent': lastSent});
+        notifications = 'E';
+        chrome.storage.local.set({
+            'nbEvol':nbEvol,
+            'changesToSee':changesToSee,
+            'lastSent': lastSent,
+            'notifications': notifications
+        });
     }
     if(changesToSee) chrome.browserAction.setBadgeText({text:"!"});
-});
 
-//Start the main application loop when the background document is ready
-document.addEventListener("DOMContentLoaded", function(event) {
+    //Start the main application loop when the variables are ready
     startLoop();
 });
-
