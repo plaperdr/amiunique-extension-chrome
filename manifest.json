@@ -1,10 +1,10 @@
 {
   "manifest_version": 2,
   "name": "AmIUnique",
-  "version": "1.0.0",
-  "version_name": "1.0.0",
+  "version": "1.0.1",
+  "version_name": "1.0.1",
   "author": "Pierre Laperdrix",
-  "description": "An extension to collect daily data on your browser fingerprint and much more. Help us investigate the diversity of fingerprints!",
+  "description": "An extension to follow the evolution of your browser fingerprint! Be notified as soon as a change is detected!",
   "homepage_url": "https://amiunique.org/",
   "offline_enabled": false,
   "permissions": [
