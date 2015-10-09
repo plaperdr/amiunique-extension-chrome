@@ -9,7 +9,8 @@ function save_options() {
 
     // Update status to let user know options were saved.
     var status = document.getElementById('status');
-    status.textContent = 'Options saved.';
+    //status.textContent = 'Options saved.';
+    status.textContent = chrome.i18n.getMessage("optionsSaved");
     setTimeout(function() {
         status.textContent = '';
     }, 750);
@@ -22,5 +23,15 @@ function restore_options() {
     document.getElementById("amiID").textContent = background.uuid;
 }
 
+//Translate options page
+function translate(){
+    Array.prototype.forEach.call(document.getElementsByTagName('*'), function (el) {
+        if (el.hasAttribute('data-i18n') ){
+            el.innerHTML = chrome.i18n.getMessage(el.getAttribute('data-i18n'));
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', restore_options);
+document.addEventListener('DOMContentLoaded', translate);
 document.getElementById('save').addEventListener('click', save_options);

@@ -1,0 +1,41 @@
+{
+  "description": {
+    "message": "Une extension pour suivre l'évolution de l'empreinte de votre navigateur ! Soyez averti dès qu'un changement est détecté !"
+  },
+  "optionsSaved": {
+    "message": "Options sauvegardées."
+  },
+  "enabled": {
+    "message": "Activé"
+  },
+  "disabled": {
+    "message": "Désactivé"
+  },
+  "badge": {
+    "message": "Désactiver seulement le badge"
+  },
+  "amiID": {
+    "message": "ID AmIUnique"
+  },
+  "save": {
+    "message": "Sauvegarder"
+  },
+  "lastSent": {
+    "message": "Dernière empreinte envoyée"
+  },
+  "nbChang":{
+    "message": "Nombre de changements"
+  },
+  "evol": {
+    "message": "Votre empreinte a évolué !"
+  },
+  "viewFP": {
+    "message": "Voir mon empreinte"
+  },
+  "viewTimeline":{
+    "message": "Voir ma frise"
+  },
+  "viewChanges": {
+    "message": "Voir changements"
+  }
+}

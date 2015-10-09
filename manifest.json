@@ -1,12 +1,13 @@
 {
   "manifest_version": 2,
   "name": "AmIUnique",
-  "version": "1.0.1",
-  "version_name": "1.0.1",
+  "version": "1.0.2",
+  "version_name": "1.0.2",
   "author": "Pierre Laperdrix",
-  "description": "An extension to follow the evolution of your browser fingerprint! Be notified as soon as a change is detected!",
+  "description": "__MSG_description__",
   "homepage_url": "https://amiunique.org/",
   "offline_enabled": false,
+  "default_locale": "en",
   "permissions": [
     "https://amiunique.org/*",
     "storage"
@@ -28,7 +29,7 @@
     "128": "icon.png"
   },
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "icon-16.png",
     "default_popup": "popup.html"
   },
   "options_ui": {

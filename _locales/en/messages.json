@@ -1,0 +1,41 @@
+{
+  "description": {
+    "message": "An extension to follow the evolution of your browser fingerprint! Be notified as soon as a change is detected!"
+  },
+  "optionsSaved": {
+    "message": "Options saved."
+  },
+  "enabled": {
+    "message": "Enabled"
+  },
+  "disabled": {
+    "message": "Disabled"
+  },
+  "badge": {
+    "message": "Disable badge only"
+  },
+  "amiID": {
+    "message": "AmIUnique ID"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "lastSent": {
+    "message": "Last fingerprint sent"
+  },
+  "nbChang": {
+    "message": "Number of changes"
+  },
+  "evol": {
+    "message": "Your fingerprint has evolved!"
+  },
+  "viewFP": {
+    "message": "View my fingerprint"
+  },
+  "viewTimeline": {
+    "message": "View my timeline"
+  },
+  "viewChanges": {
+    "message": "View changes"
+  }
+}

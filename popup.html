@@ -17,28 +17,28 @@
         <h6 class="subtitle">Extension</h6>
 
         <div class="msg" id="changes" style="display: none;">
+            <span data-i18n="evol">
+            </span>
             Your fingerprint has evolved!
             <div class="row">
-                <button id="viewChanges" class="col s8 offset-s1 waves-effect waves-light btn red accent-2">See changes</button>
+                <button id="viewChanges" class="col s8 offset-s1 waves-effect waves-light btn red accent-2" data-i18n="viewChanges">See changes</button>
                 <button id="discardChanges" class="col s2 waves-effect waves-light btn red accent-2">X</button>
             </div>
         </div>
 
         <div id="message" class="logo">
             <div class="card-panel msg" style="">
-                <span>
-                     Last fingerprint sent
+                <span data-i18n="lastSent">
                 </span><br>
                 <span id="date"></span>
                 <br><br>
-                <span>
-                    Number of changes
+                <span data-i18n="nbChang">
                 </span><br>
                 <span id="nbEvol"></span>
             </div>
         </div>
-        <button id="viewFP" class="waves-effect waves-light btn">View my fingerprint</button>
-        <button id="viewTimeline" class="waves-effect waves-light btn">View my timeline</button>
+        <button id="viewFP" class="waves-effect waves-light btn" data-i18n="viewFP">View my fingerprint</button>
+        <button id="viewTimeline" class="waves-effect waves-light btn" data-i18n="viewTimeline">View my timeline</button>
 
 
     </div>

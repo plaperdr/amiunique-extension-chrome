@@ -1,25 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>AmIUnique Options</title>
-    <style>
-        body: { padding: 10px; }
-    </style>
-</head>
-
 <body>
 Notifications
 <form>
-    <input type="radio" name="notif" id="ENot" value="E" checked> Enabled
-    <input type="radio" name="notif" id="DNot" value="D"> Disabled
-    <input type="radio" name="notif" id="BNot" value="B" > Disable badge only
+    <input type="radio" name="notif" id="ENot" value="E" checked> <span data-i18n="enabled"></span>
+    <input type="radio" name="notif" id="DNot" value="D"> <span data-i18n="disabled"></span>
+    <input type="radio" name="notif" id="BNot" value="B"> <span data-i18n="badge"></span>
 </form>
 <br>
-AmIUnique ID
+<span data-i18n="amiID"></span>
 <div id="amiID"></div>
 <br>
 <div id="status"></div>
-<button id="save">Save</button>
+<button id="save" data-i18n="save"></button>
 
 <script src="options.js"></script>
 </body>
